@@ -1,6 +1,6 @@
 #include <cstdint>
 #include <cstdlib>
-
+#include <cassert>
 #ifndef BOARD_H
 #define BOARD_H
 
