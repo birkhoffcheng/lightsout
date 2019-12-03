@@ -1,5 +1,13 @@
 #include "solver.hpp"
 
+bool get_bit(uint64_t board, uint8_t index) {
+	#ifdef DEBUG
+	assert(index < BOARD_SIZE_LIMIT);
+	#endif
+	board >>= index;
+	return board & 1 == 1;
+}
+
 board_t press_button(board_t board, uint8_t bit_index, uint8_t width, uint8_t height) {
 	board = board_flip(board, bit_index);
 	uint8_t row = bit_index / width;
