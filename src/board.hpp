@@ -4,15 +4,21 @@
 #ifndef BOARD_H
 #define BOARD_H
 
-typedef uint64_t board_t;
 constexpr uint8_t BOARD_SIZE_LIMIT = 64;
 
-board_t board_new();
+class Board {
+public:
+	uint64_t board;
+	uint64_t solution;
+	uint8_t width;
+	uint8_t height;
 
-bool board_get_bit(board_t board, uint8_t index);
-
-bool board_equal(board_t a, board_t b);
-
-board_t board_flip(board_t board, uint8_t index);
+	Board(uint64_t board_in, uint8_t width_in, uint8_t height_in);
+	bool operator==(Board &rhs);
+	bool get_bit(uint8_t index);
+	void flip(uint8_t index);
+	void press_button(uint8_t bit_index);
+	bool solve();
+};
 
 #endif
