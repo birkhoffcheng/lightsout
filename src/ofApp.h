@@ -1,7 +1,7 @@
 #pragma once
-
+#include "ofxGui.h"
 #include "ofMain.h"
-
+#include "board.hpp"
 class ofApp : public ofBaseApp{
 
 	public:
@@ -21,4 +21,5 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
+		Board b;
 };

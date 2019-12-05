@@ -13,6 +13,7 @@ public:
 	uint8_t width;
 	uint8_t height;
 
+	Board();
 	Board(uint64_t board_in, uint8_t width_in, uint8_t height_in);
 	bool operator==(Board &rhs);
 	bool get_bit(uint8_t index);

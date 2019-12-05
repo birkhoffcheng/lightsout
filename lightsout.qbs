@@ -15,6 +15,8 @@ Project{
             'src/main.cpp',
             'src/ofApp.cpp',
             'src/ofApp.h',
+            'src/board.hpp',
+            'src/board.cpp',
         ]
 
         of.addons: [
