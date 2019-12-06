@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 	ofSetWindowShape(500, 800);
-	b.reset(25);
+	b.reset();
 	reset_button.set(200, 600, 100, 50);
 }
 
@@ -65,7 +65,7 @@ void ofApp::mousePressed(int x, int y, int button){
 		int row = y / 100;
 		b.press_button(row * 5 + col);
 	} else if (reset_button.inside(x, y)) {
-		b.reset(25);
+		b.reset();
 	}
 }
 
