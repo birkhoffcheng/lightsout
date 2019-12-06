@@ -67,3 +67,13 @@ bool Board::solve() {
 	board = board_copy;
 	return false;
 }
+
+void Board::reset(uint8_t index) {
+	uint64_t mask = UINT64_MAX;
+	mask >>= UINT64_WIDTH - index;
+	uint64_t random;
+	FILE *fp = fopen("/dev/urandom", "rb");
+	fread(&random, sizeof(random), 1, fp);
+	fclose(fp);
+	board = random & mask;
+}

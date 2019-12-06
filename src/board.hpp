@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <cstdint>
 #include <cstdlib>
 #include <cassert>
@@ -20,6 +21,7 @@ public:
 	void flip(uint8_t index);
 	void press_button(uint8_t bit_index);
 	bool solve();
+	void reset(uint8_t index);
 };
 
 #endif
