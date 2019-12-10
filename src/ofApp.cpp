@@ -44,6 +44,25 @@ void ofApp::draw(){
 			rect_start_y += 100;
 		}
 
+		if (show_solution) {
+			ofSetColor(255, 0, 0);
+			rect_start_y = 50;
+			bit_index = 0;
+			for (int i = 0; i < 5; ++i) {
+				rect_start_x = 50;
+				for (int j = 0; j < 5; ++j) {
+					if (b.get_solution_bit(bit_index)) {
+						ofDrawCircle(rect_start_x, rect_start_y, 10, 10);
+					}
+
+					++bit_index;
+					rect_start_x += 100;
+				}
+
+				rect_start_y += 100;
+			}
+		}
+
 		if (b.solved()) {
 			ofSetColor(0, 200, 200);
 			ofDrawRectangle(0, 200, 500, 200);
@@ -71,30 +90,30 @@ void ofApp::draw(){
 			rect_start_y += 100;
 		}
 
+		if (show_solution) {
+			ofSetColor(255, 0, 0);
+			rect_start_y = 50;
+			bit_index = 0;
+			for (int i = 0; i < 5; ++i) {
+				rect_start_x = 50;
+				for (int j = 0; j < 5; ++j) {
+					if (b.get_solution_bit(bit_index)) {
+						ofDrawCircle(rect_start_x, rect_start_y, 10, 10);
+					}
+
+					++bit_index;
+					rect_start_x += 100;
+				}
+
+				rect_start_y += 100;
+			}
+		}
+
 		if (not_solved) {
 			ofSetColor(0, 200, 200);
 			ofDrawRectangle(0, 200, 500, 200);
 			ofSetColor(255, 255, 255);
 			ofDrawBitmapString("No Solution Available!", 100, 250);
-		}
-	}
-
-	if (show_solution) {
-		ofSetColor(255, 0, 0);
-		rect_start_y = 50;
-		bit_index = 0;
-		for (int i = 0; i < 5; ++i) {
-			rect_start_x = 50;
-			for (int j = 0; j < 5; ++j) {
-				if (b.get_solution_bit(bit_index)) {
-					ofDrawCircle(rect_start_x, rect_start_y, 10, 10);
-				}
-
-				++bit_index;
-				rect_start_x += 100;
-			}
-
-			rect_start_y += 100;
 		}
 	}
 
@@ -132,6 +151,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
+	not_solved = false;
 	if (y <= 500) {
 		if (solving) {
 			int col = x / 100;
@@ -145,6 +165,7 @@ void ofApp::mousePressed(int x, int y, int button){
 	} else if (reset_button.inside(x, y)) {
 		b.reset();
 		show_solution = false;
+		solving = false;
 	} else if (show_solution_button.inside(x, y)) {
 		show_solution = !show_solution;
 	} else if (solving_mode_button.inside(x, y)) {

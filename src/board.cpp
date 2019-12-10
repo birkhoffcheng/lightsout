@@ -48,8 +48,8 @@ void Board::press_button(uint8_t bit_index) {
 
 bool Board::solve() {
 	uint32_t board_copy = board;
-	uint32_t solution_max = 1 << (width * height);
-	for (solution = 0; solution <= solution_max; ++solution) {
+	uint32_t solution_max = 1 << (width * height + 1);
+	for (solution = 0; solution < solution_max; ++solution) {
 		board = board_copy;
 		for (int i = 0; i < width * height; ++i) {
 			if (get_solution_bit(i)) {
@@ -64,6 +64,7 @@ bool Board::solve() {
 	}
 
 	board = board_copy;
+	solution = 0;
 	return false;
 }
 
