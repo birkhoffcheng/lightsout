@@ -23,4 +23,10 @@ class ofApp : public ofBaseApp{
 
 		Board b;
 		ofRectangle reset_button;
+		ofRectangle show_solution_button;
+		ofRectangle solving_mode_button;
+		ofRectangle solve_button;
+		bool show_solution;
+		bool solving;
+		bool not_solved;
 };

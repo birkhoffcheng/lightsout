@@ -6,13 +6,6 @@ Board::Board() {
 	height = 5;
 }
 
-Board::Board(uint64_t board_in, uint8_t width_in, uint8_t height_in) {
-	board = board_in;
-	width = width_in;
-	height = height_in;
-	assert(height < BOARD_SIZE_LIMIT / width);
-}
-
 bool Board::operator==(Board &rhs) {
 	return board == rhs.board;
 }
@@ -24,11 +17,18 @@ bool Board::get_bit(uint8_t index) {
 	return (board >> index) & 1 == 1;
 }
 
+bool Board::get_solution_bit(uint8_t index) {
+	#ifdef DEBUG
+	assert(index < BOARD_SIZE_LIMIT);
+	#endif
+	return (solution >> index) & 1 == 1;
+}
+
 void Board::flip(uint8_t index) {
 	#ifdef DEBUG
 	assert(index < BOARD_SIZE_LIMIT);
 	#endif
-	uint64_t mask = 1 << index;
+	uint32_t mask = 1 << index;
 	board ^= mask;
 }
 
@@ -47,11 +47,12 @@ void Board::press_button(uint8_t bit_index) {
 }
 
 bool Board::solve() {
-	uint64_t board_copy = board;
-	for (solution = 0; solution < 2 << (width * height); ++solution) {
+	uint32_t board_copy = board;
+	uint32_t solution_max = 1 << (width * height);
+	for (solution = 0; solution <= solution_max; ++solution) {
 		board = board_copy;
 		for (int i = 0; i < width * height; ++i) {
-			if (get_bit(i)) {
+			if (get_solution_bit(i)) {
 				press_button(i);
 			}
 		}
@@ -67,16 +68,25 @@ bool Board::solve() {
 }
 
 void Board::reset() {
-	uint64_t mask = UINT64_MAX;
-	mask >>= UINT64_WIDTH - width * height;
-	uint64_t random;
+	uint32_t mask = UINT32_MAX;
+	mask >>= BOARD_SIZE_LIMIT - width * height;
+	uint32_t random;
 	FILE *fp = fopen("/dev/urandom", "rb");
 	fread(&random, sizeof(random), 1, fp);
 	fclose(fp);
 	solution = random & mask;
 	for (int i = 0; i < width * height; ++i) {
-		if ((solution >> i) & 1) {
+		if (get_solution_bit(i)) {
 			press_button(i);
 		}
 	}
+}
+
+bool Board::solved() {
+	return board == 0;
+}
+
+void Board::blank() {
+	board = 0;
+	solution = 0;
 }

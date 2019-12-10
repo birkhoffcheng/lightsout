@@ -2,9 +2,15 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	ofSetWindowShape(500, 800);
+	ofSetWindowShape(500, 600);
 	b.reset();
-	reset_button.set(200, 600, 100, 50);
+	reset_button.set(20, 525, 100, 50);
+	show_solution_button.set(140, 525, 100, 50);
+	solving_mode_button.set(260, 525, 100, 50);
+	solve_button.set(380, 525, 100, 50);
+	show_solution = false;
+	solving = false;
+	not_solved = false;
 }
 
 //--------------------------------------------------------------
@@ -14,28 +20,94 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	int rect_start_x = 10;
-	int rect_start_y = 10;
-	uint8_t bit_index = 0;
-	for (int i = 0; i < 5; ++i) {
+	int rect_start_x;
+	int rect_start_y;
+	uint8_t bit_index;
+	if (!solving) {
 		rect_start_x = 10;
-		for (int j = 0; j < 5; ++j) {
-			if (b.get_bit(bit_index)) {
-				ofSetColor(255, 255, 255);
-			} else {
-				ofSetColor(127, 127, 127);
+		rect_start_y = 10;
+		bit_index = 0;
+		for (int i = 0; i < 5; ++i) {
+			rect_start_x = 10;
+			for (int j = 0; j < 5; ++j) {
+				if (b.get_bit(bit_index)) {
+					ofSetColor(255, 255, 255);
+				} else {
+					ofSetColor(127, 127, 127);
+				}
+
+				++bit_index;
+				ofDrawRectangle(rect_start_x, rect_start_y, 80, 80);
+				rect_start_x += 100;
 			}
 
-			++bit_index;
-			ofDrawRectangle(rect_start_x, rect_start_y, 80, 80);
-			rect_start_x += 100;
+			rect_start_y += 100;
 		}
 
-		rect_start_y += 100;
+		if (b.solved()) {
+			ofSetColor(0, 200, 200);
+			ofDrawRectangle(0, 200, 500, 200);
+			ofSetColor(255, 255, 255);
+			ofDrawBitmapString("CONGRATULATIONS!", 100, 250);
+		}
+	} else {
+		rect_start_x = 10;
+		rect_start_y = 10;
+		bit_index = 0;
+		for (int i = 0; i < 5; ++i) {
+			rect_start_x = 10;
+			for (int j = 0; j < 5; ++j) {
+				if (b.get_bit(bit_index)) {
+					ofSetColor(255, 255, 255);
+				} else {
+					ofSetColor(127, 127, 127);
+				}
+
+				++bit_index;
+				ofDrawRectangle(rect_start_x, rect_start_y, 80, 80);
+				rect_start_x += 100;
+			}
+
+			rect_start_y += 100;
+		}
+
+		if (not_solved) {
+			ofSetColor(0, 200, 200);
+			ofDrawRectangle(0, 200, 500, 200);
+			ofSetColor(255, 255, 255);
+			ofDrawBitmapString("No Solution Available!", 100, 250);
+		}
+	}
+
+	if (show_solution) {
+		ofSetColor(255, 0, 0);
+		rect_start_y = 50;
+		bit_index = 0;
+		for (int i = 0; i < 5; ++i) {
+			rect_start_x = 50;
+			for (int j = 0; j < 5; ++j) {
+				if (b.get_solution_bit(bit_index)) {
+					ofDrawCircle(rect_start_x, rect_start_y, 10, 10);
+				}
+
+				++bit_index;
+				rect_start_x += 100;
+			}
+
+			rect_start_y += 100;
+		}
 	}
 
 	ofSetColor(0, 200, 255);
 	ofDrawRectangle(reset_button);
+	ofDrawRectangle(show_solution_button);
+	ofDrawRectangle(solving_mode_button);
+	ofDrawRectangle(solve_button);
+	ofSetColor(255, 255, 255);
+	ofDrawBitmapString("Reset", 50, 550);
+	ofDrawBitmapString("Solution", 160, 550);
+	ofDrawBitmapString("Solving Mode", 260, 550);
+	ofDrawBitmapString("Solve", 410, 550);
 }
 
 //--------------------------------------------------------------
@@ -61,11 +133,34 @@ void ofApp::mouseDragged(int x, int y, int button){
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
 	if (y <= 500) {
-		int col = x / 100;
-		int row = y / 100;
-		b.press_button(row * 5 + col);
+		if (solving) {
+			int col = x / 100;
+			int row = y / 100;
+			b.flip(row * 5 + col);
+		} else {
+			int col = x / 100;
+			int row = y / 100;
+			b.press_button(row * 5 + col);
+		}
 	} else if (reset_button.inside(x, y)) {
 		b.reset();
+		show_solution = false;
+	} else if (show_solution_button.inside(x, y)) {
+		show_solution = !show_solution;
+	} else if (solving_mode_button.inside(x, y)) {
+		solving = !solving;
+		show_solution = false;
+		if (solving) {
+			b.blank();
+		} else {
+			b.reset();
+		}
+	} else if (solve_button.inside(x, y)) {
+		if (b.solve()) {
+			show_solution = true;
+		} else {
+			not_solved = true;
+		}
 	}
 }
 
