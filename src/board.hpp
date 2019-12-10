@@ -9,12 +9,13 @@
 constexpr uint8_t BOARD_SIZE_LIMIT = 32;
 
 class Board {
-public:
+private:
 	uint32_t board;
 	uint32_t solution;
 	uint8_t width;
 	uint8_t height;
 
+public:
 	Board();
 	bool operator==(Board &rhs);
 	bool get_bit(uint8_t index);
