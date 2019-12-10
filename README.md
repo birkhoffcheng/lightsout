@@ -1,6 +1,7 @@
 # Lights Out Player and Solver
 ## Dependencies
 [openFrameworks](https://openframeworks.cc)
+
 Only runs on Unix-like Operating Systems.
 ## Build
 ```
