@@ -1,4 +1,4 @@
-# Lights Out Player and Solver
+# [Lights Out](https://en.wikipedia.org/wiki/Lights_Out_(game)) Player and Solver
 ## Dependencies
 [openFrameworks](https://openframeworks.cc)
 
