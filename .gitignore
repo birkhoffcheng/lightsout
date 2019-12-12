@@ -1,4 +1,4 @@
-
+a.out
 # Created by https://www.gitignore.io/api/xcode,visualstudio,openframeworks,openframeworks+visualstudio
 # Edit at https://www.gitignore.io/?templates=xcode,visualstudio,openframeworks,openframeworks+visualstudio
 
@@ -182,7 +182,6 @@ x86/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/
-bin/li*
 [Ll]og/
 
 # Visual Studio 2015/2017 cache/options directory
