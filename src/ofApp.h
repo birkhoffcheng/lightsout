@@ -30,4 +30,5 @@ class ofApp : public ofBaseApp{
 		bool solving;
 		bool not_solved;
 		ofSoundPlayer winning;
+		ofSoundPlayer flip;
 };

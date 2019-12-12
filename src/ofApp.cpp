@@ -12,6 +12,7 @@ void ofApp::setup(){
 	solving = false;
 	not_solved = false;
 	winning.load("airhorn.mp3");
+	flip.load("flip.mp3");
 }
 
 //--------------------------------------------------------------
@@ -156,6 +157,8 @@ void ofApp::mouseDragged(int x, int y, int button){
 void ofApp::mousePressed(int x, int y, int button){
 	not_solved = false;
 	if (y <= 500) {
+		flip.setPosition(0.5);
+		flip.play();
 		if (solving) {
 			int col = x / 100;
 			int row = y / 100;

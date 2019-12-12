@@ -21,3 +21,4 @@
 	- Disabled solving mode when resetting
 - **12/11/2019** Add sound effect
 	- Add airhorn winning sound effect on solving the board
+	- Add switch sound when toggling lights
