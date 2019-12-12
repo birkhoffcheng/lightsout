@@ -11,6 +11,7 @@ void ofApp::setup(){
 	show_solution = false;
 	solving = false;
 	not_solved = false;
+	winning.load("airhorn.mp3");
 }
 
 //--------------------------------------------------------------
@@ -68,6 +69,8 @@ void ofApp::draw(){
 			ofDrawRectangle(0, 200, 500, 200);
 			ofSetColor(255, 255, 255);
 			ofDrawBitmapString("CONGRATULATIONS!", 100, 250);
+		} else {
+			winning.play();
 		}
 	} else {
 		rect_start_x = 10;

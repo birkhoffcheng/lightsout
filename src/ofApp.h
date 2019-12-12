@@ -29,4 +29,5 @@ class ofApp : public ofBaseApp{
 		bool show_solution;
 		bool solving;
 		bool not_solved;
+		ofSoundPlayer winning;
 };

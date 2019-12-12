@@ -15,3 +15,9 @@
 - **12/09/2019** Finalized the GUI
 	- Implemented solving mode
 	- Implemented show solution button
+- **12/10/2019** Finishing touches to the GUI
+	- Fixed minor bugs in solving library
+	- Fixed an overlay problem
+	- Disabled solving mode when resetting
+- **12/11/2019** Add sound effect
+	- Add airhorn winning sound effect on solving the board
