@@ -6,10 +6,6 @@ Board::Board() {
 	height = 5;
 }
 
-bool Board::operator==(Board &rhs) {
-	return board == rhs.board;
-}
-
 bool Board::get_bit(uint8_t index) {
 	#ifdef DEBUG
 	assert(index < BOARD_SIZE_LIMIT);

@@ -17,7 +17,6 @@ private:
 
 public:
 	Board();
-	bool operator==(Board &rhs);
 	bool get_bit(uint8_t index);
 	bool get_solution_bit(uint8_t index);
 	void flip(uint8_t index);

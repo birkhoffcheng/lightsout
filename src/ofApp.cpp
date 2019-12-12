@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 	ofSetWindowShape(500, 600);
-	b.reset();
+	board.reset();
 	reset_button.set(20, 525, 100, 50);
 	show_solution_button.set(140, 525, 100, 50);
 	solving_mode_button.set(260, 525, 100, 50);
@@ -32,7 +32,7 @@ void ofApp::draw(){
 		for (int i = 0; i < 5; ++i) {
 			rect_start_x = 10;
 			for (int j = 0; j < 5; ++j) {
-				if (b.get_bit(bit_index)) {
+				if (board.get_bit(bit_index)) {
 					ofSetColor(255, 255, 255);
 				} else {
 					ofSetColor(127, 127, 127);
@@ -53,7 +53,7 @@ void ofApp::draw(){
 			for (int i = 0; i < 5; ++i) {
 				rect_start_x = 50;
 				for (int j = 0; j < 5; ++j) {
-					if (b.get_solution_bit(bit_index)) {
+					if (board.get_solution_bit(bit_index)) {
 						ofDrawCircle(rect_start_x, rect_start_y, 10, 10);
 					}
 
@@ -65,7 +65,7 @@ void ofApp::draw(){
 			}
 		}
 
-		if (b.solved()) {
+		if (board.solved()) {
 			ofSetColor(0, 200, 200);
 			ofDrawRectangle(0, 200, 500, 200);
 			ofSetColor(255, 255, 255);
@@ -80,7 +80,7 @@ void ofApp::draw(){
 		for (int i = 0; i < 5; ++i) {
 			rect_start_x = 10;
 			for (int j = 0; j < 5; ++j) {
-				if (b.get_bit(bit_index)) {
+				if (board.get_bit(bit_index)) {
 					ofSetColor(255, 255, 255);
 				} else {
 					ofSetColor(127, 127, 127);
@@ -101,7 +101,7 @@ void ofApp::draw(){
 			for (int i = 0; i < 5; ++i) {
 				rect_start_x = 50;
 				for (int j = 0; j < 5; ++j) {
-					if (b.get_solution_bit(bit_index)) {
+					if (board.get_solution_bit(bit_index)) {
 						ofDrawCircle(rect_start_x, rect_start_y, 10, 10);
 					}
 
@@ -162,14 +162,14 @@ void ofApp::mousePressed(int x, int y, int button){
 		if (solving) {
 			int col = x / 100;
 			int row = y / 100;
-			b.flip(row * 5 + col);
+			board.flip(row * 5 + col);
 		} else {
 			int col = x / 100;
 			int row = y / 100;
-			b.press_button(row * 5 + col);
+			board.press_button(row * 5 + col);
 		}
 	} else if (reset_button.inside(x, y)) {
-		b.reset();
+		board.reset();
 		show_solution = false;
 		solving = false;
 	} else if (show_solution_button.inside(x, y)) {
@@ -178,12 +178,12 @@ void ofApp::mousePressed(int x, int y, int button){
 		solving = !solving;
 		show_solution = false;
 		if (solving) {
-			b.blank();
+			board.blank();
 		} else {
-			b.reset();
+			board.reset();
 		}
 	} else if (solve_button.inside(x, y)) {
-		if (b.solve()) {
+		if (board.solve()) {
 			show_solution = true;
 		} else {
 			not_solved = true;

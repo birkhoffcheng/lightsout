@@ -21,7 +21,7 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
-		Board b;
+		Board board;
 		ofRectangle reset_button;
 		ofRectangle show_solution_button;
 		ofRectangle solving_mode_button;
